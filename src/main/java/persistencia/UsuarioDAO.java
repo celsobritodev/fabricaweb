@@ -2,7 +2,10 @@ package persistencia;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import entidade.Usuario;
 
@@ -48,7 +51,95 @@ public class UsuarioDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
+
+	public void salvar(Usuario usuario) {
+		if (usuario.getId() != null) {
+			alterar(usuario);
+		} else {
+			cadastrar(usuario);
+		}
+	}
+	
+	
+	
+	public Usuario buscaPorId(Integer id) {
+		
+		Usuario usuRetorno = null;
+		
+		String sql = "select * from usuario where id=?";
+		try (PreparedStatement preparador = con.prepareStatement(sql)) {
+			preparador.setInt(1, id);
+			ResultSet resultado = preparador.executeQuery();
+			if (resultado.next()) {
+				usuRetorno = new Usuario();
+				usuRetorno.setId(resultado.getInt("id"));
+				usuRetorno.setNome(resultado.getString("nome"));
+				usuRetorno.setLogin(resultado.getString("login"));
+				usuRetorno.setSenha(resultado.getString("senha"));
+				return usuRetorno;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
+	
+	
+/**
+ * 	Realiza a busca de todos  os registros da tabela de usuarios
+ * @return
+ */
+	
+   public List<Usuario> buscaTodos() {
+		
+		Usuario usuRetorno = null;
+		
+		String sql = "select * from usuario";
+		List<Usuario> usuarios = new ArrayList<>();
+		try (PreparedStatement preparador = con.prepareStatement(sql)) {
+
+			ResultSet resultado = preparador.executeQuery();
+			while (resultado.next()) {
+	
+				usuRetorno = new Usuario();
+				usuRetorno.setId(resultado.getInt("id"));
+				usuRetorno.setNome(resultado.getString("nome"));
+				usuRetorno.setLogin(resultado.getString("login"));
+				usuRetorno.setSenha(resultado.getString("senha"));
+				usuarios.add(usuRetorno); 
+			}
+
+				
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return usuarios;
+	}
+
+public Usuario autenticar(Usuario usuConsulta) {
+	Usuario usuRetorno = null;
+	String sql = "select * from usuario where login=? and senha=?";
+	try (PreparedStatement preparador = con.prepareStatement(sql)) {
+		preparador.setString(1, usuConsulta.getLogin());
+		preparador.setString(2, usuConsulta.getSenha());
+		ResultSet resultado = preparador.executeQuery();
+	
+		if (resultado.next()) {
+			usuRetorno = new Usuario();
+			usuRetorno.setId(resultado.getInt("id"));
+			usuRetorno.setNome(resultado.getString("nome"));
+			usuRetorno.setLogin(resultado.getString("login"));
+			usuRetorno.setSenha(resultado.getString("senha"));
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	return usuRetorno;
+}
+
+
+
 
 }
