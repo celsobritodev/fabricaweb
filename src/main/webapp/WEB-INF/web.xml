@@ -3,7 +3,7 @@
   <display-name>fabricaweb</display-name>
   <welcome-file-list>
     <welcome-file>login.html</welcome-file>
-    </welcome-file-list>
+  </welcome-file-list>
   <servlet>
     <description></description>
     <display-name>UsuarioController</display-name>
@@ -24,4 +24,13 @@
     <servlet-name>Autenticador</servlet-name>
     <url-pattern>/Autenticador</url-pattern>
   </servlet-mapping>
+  <filter>
+    <display-name>FiltroAutenticacao</display-name>
+    <filter-name>FiltroAutenticacao</filter-name>
+    <filter-class>filter.FiltroAutenticacao</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>FiltroAutenticacao</filter-name>
+    <url-pattern>/FiltroAutenticacao</url-pattern>
+  </filter-mapping>
 </web-app>
