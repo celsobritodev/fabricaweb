@@ -33,4 +33,14 @@
     <filter-name>FiltroAutenticacao</filter-name>
     <url-pattern>/FiltroAutenticacao</url-pattern>
   </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>HomeController</display-name>
+    <servlet-name>HomeController</servlet-name>
+    <servlet-class>controller.HomeController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HomeController</servlet-name>
+    <url-pattern>/HomeController</url-pattern>
+  </servlet-mapping>
 </web-app>

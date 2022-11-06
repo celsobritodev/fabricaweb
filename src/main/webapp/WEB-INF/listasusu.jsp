@@ -16,6 +16,13 @@
 			location.href = "UsuarioController?acao=exc&id="+id;
 		}
 	}
+	
+
+	 function novo() {
+		 location.href='UsuarioController?acao=cad';
+	 }
+
+
 </script>
 
 
@@ -23,6 +30,8 @@
 
 </head>
 <body>
+
+<%@include file="menu.jsp" %>
 	<%
 	// preciso remover o aviso de "casting" aqui
 	List<Usuario> usuarios = (List<Usuario>) request.getAttribute("usuarios");
@@ -46,5 +55,8 @@
 		}
 		%>
 	</table>
+	
+			 <input type="button" value="Novo" onclick ="javscript:novo()">
+	
 </body>
 </html>

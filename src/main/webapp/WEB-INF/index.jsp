@@ -1,3 +1,4 @@
+<%@page import="entidade.Usuario"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,6 +6,14 @@
 <title>Insert title here</title>
 </head>
 <body>
- <h1>Bem vindo</h1>
+
+<%@include file="menu.jsp" %>
+
+ <h1>Bem vindo </h1>
+
+ <% Usuario usuario = (Usuario) request.getSession().getAttribute("usuAutenticado");
+ out.print(usuario.getNome()); 
+  // (Usuario) request.getSession().getAttribute("usuAtenticado").getNome()
+  %>
 </body>
 </html>
